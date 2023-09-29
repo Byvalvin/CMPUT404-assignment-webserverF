@@ -44,7 +44,7 @@ class MyWebServer(socketserver.BaseRequestHandler):
         req_type = firstline[0]
         req_ext = firstline[1]
         # print(req_type,req_ext)
-        print(firstline)
+        # print(firstline)
 
 
         first = "HTTP/1.1"
@@ -55,7 +55,7 @@ class MyWebServer(socketserver.BaseRequestHandler):
         status_code = 0
         
         if req_type!="GET":
-            print("NOT GETTING")
+            # print("NOT GETTING")
             first += " 405 Method Not Allowed"
             headers=""
             headers_dict = {"Content Type: ":"text/html"}
@@ -63,12 +63,12 @@ class MyWebServer(socketserver.BaseRequestHandler):
                 headers += (k+v)+newline
             
             response = first+newline + headers+newline + body+newline
-            print("Response;")
-            print(response)
+            # print("Response;")
+            # print(response)
             self.request.send(response.encode())
 
         else:
-            print("GETTING")
+            # print("GETTING")
             
             testpath = path + req_ext
 
@@ -97,8 +97,8 @@ class MyWebServer(socketserver.BaseRequestHandler):
                 file_type_finder= path.split(".")
                 file_type = file_type_finder[len(file_type_finder)-1]
 
-                print(file_type_finder)
-                print(file_type)
+                # print(file_type_finder)
+                # print(file_type)
                 if file_type=="html":
                     headers_dict["Content-Type: "] = "text/html"
                 elif file_type=="css":
@@ -110,20 +110,20 @@ class MyWebServer(socketserver.BaseRequestHandler):
                     headers += (k+v)+newline
                 response = first+newline + headers+newline
                 if status_code == 301:
-                    response += "Location: /index.html"
+                    response += "Location: /index.html\n"
 
                 file = open(path,'r')
                 
-                print("Path was;\n")
-                print(path,newline)
+                # print("Path was;\n")
+                # print(path,newline)
                 lines = file.readlines()
                 for line in lines:
                     response += line
                 response+=newline
 
 
-            print("Response; \n")
-            print(response)
+            # print("Response; \n")
+            # print(response)
             self.request.sendall((response).encode())
 
         # self.request.sendall(bytearray("OK",'utf-8')) 
@@ -140,6 +140,10 @@ if __name__ == "__main__":
     # Activate the server; this will keep running until you
     # interrupt the program with Ctrl-C
     server.serve_forever()
+
+
+
+
 
 
 ##REFERENCES##
