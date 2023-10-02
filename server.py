@@ -29,6 +29,8 @@ import os
 # try: curl -v -X GET http://127.0.0.1:8080/
 
 
+#Assignment 1 server implementation provided by Daniel Asimiakwini
+
 encoding = 'utf-8'
 newline = "\n"
 
